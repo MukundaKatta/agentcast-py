@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agentcast-py"
+version = "0.1.0"
+description = "Structured output for any LLM call. Validate-and-retry loop for JSON responses; BYO LLM and validator. Python port of @mukundakatta/agentcast."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Mukunda Katta", email = "mukunda.vjcs6@gmail.com" }]
+keywords = [
+  "ai",
+  "agents",
+  "llm",
+  "structured-output",
+  "json",
+  "pydantic",
+  "validation",
+  "retry",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23"]
+pydantic = ["pydantic>=2"]
+
+[project.urls]
+Homepage = "https://github.com/MukundaKatta/agentcast-py"
+Issues = "https://github.com/MukundaKatta/agentcast-py/issues"
+Source = "https://github.com/MukundaKatta/agentcast-py"
+"JS sibling" = "https://github.com/MukundaKatta/agentcast"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agentcast"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/tests", "/README.md", "/LICENSE"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+asyncio_mode = "auto"
