@@ -14,17 +14,17 @@ def test_extract_whole_text_array():
 
 
 def test_extract_fenced_json_block():
-    text = "Here you go:\n```json\n{\"a\": 1}\n```\nThanks!"
+    text = 'Here you go:\n```json\n{"a": 1}\n```\nThanks!'
     assert extract_json(text) == {"a": 1}
 
 
 def test_extract_fenced_block_without_lang_tag():
-    text = "Output:\n```\n{\"x\": 2}\n```"
+    text = 'Output:\n```\n{"x": 2}\n```'
     assert extract_json(text) == {"x": 2}
 
 
 def test_extract_largest_balanced_substring_in_prose():
-    text = "Here is the data: {\"name\": \"Alice\", \"items\": [1, 2, 3]} -- enjoy."
+    text = 'Here is the data: {"name": "Alice", "items": [1, 2, 3]} -- enjoy.'
     assert extract_json(text) == {"name": "Alice", "items": [1, 2, 3]}
 
 
@@ -43,7 +43,7 @@ def test_extract_returns_none_on_non_string():
 
 def test_extract_picks_largest_when_multiple_candidates():
     # Two JSON-shaped substrings; the longer should win.
-    text = "first {\"a\": 1} then {\"b\": 2, \"more\": [1, 2, 3, 4]}"
+    text = 'first {"a": 1} then {"b": 2, "more": [1, 2, 3, 4]}'
     assert extract_json(text) == {"b": 2, "more": [1, 2, 3, 4]}
 
 

@@ -20,7 +20,9 @@ def test_cast_returns_validated_value_on_first_try():
     async def llm(messages):
         return '{"name": "Alice", "age": 30}'
 
-    out = _run(cast(llm=llm, validate=schema, prompt="Give me a person.", max_retries=0))
+    out = _run(
+        cast(llm=llm, validate=schema, prompt="Give me a person.", max_retries=0)
+    )
     assert out == {"name": "Alice", "age": 30}
 
 
@@ -28,7 +30,7 @@ def test_cast_unwraps_fenced_json():
     schema = adapters.shape({"x": "int"})
 
     async def llm(messages):
-        return "Sure!\n```json\n{\"x\": 7}\n```"
+        return 'Sure!\n```json\n{"x": 7}\n```'
 
     out = _run(cast(llm=llm, validate=schema, prompt="Give me x.", max_retries=0))
     assert out == {"x": 7}
@@ -106,7 +108,11 @@ def test_cast_negative_max_retries_raises():
         return "{}"
 
     with pytest.raises(TypeError):
-        _run(cast(llm=llm, validate=lambda v: {"valid": True}, prompt="x", max_retries=-1))
+        _run(
+            cast(
+                llm=llm, validate=lambda v: {"valid": True}, prompt="x", max_retries=-1
+            )
+        )
 
 
 def test_cast_on_attempt_called_for_each_failure():

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import asyncio
 import inspect
 import re
 from dataclasses import dataclass
@@ -62,7 +61,9 @@ async def cast(
     ``llm`` may be sync or async; both are supported.
     """
     if not callable(llm):
-        raise TypeError("cast: llm must be a callable (messages) -> str (sync or async)")
+        raise TypeError(
+            "cast: llm must be a callable (messages) -> str (sync or async)"
+        )
     if not callable(validate):
         raise TypeError(
             "cast: validate must be a callable (value) -> "
@@ -101,7 +102,14 @@ async def cast(
             err = "No JSON could be extracted from the response."
             attempts.append({"text": text, "parsed": None, "error": err})
             if on_attempt:
-                on_attempt({"attempt": attempt_index + 1, "text": text, "parsed": None, "error": err})
+                on_attempt(
+                    {
+                        "attempt": attempt_index + 1,
+                        "text": text,
+                        "parsed": None,
+                        "error": err,
+                    }
+                )
             _push_feedback(messages, text, err)
             continue
 
@@ -116,7 +124,14 @@ async def cast(
         )
         attempts.append({"text": text, "parsed": parsed, "error": err})
         if on_attempt:
-            on_attempt({"attempt": attempt_index + 1, "text": text, "parsed": parsed, "error": err})
+            on_attempt(
+                {
+                    "attempt": attempt_index + 1,
+                    "text": text,
+                    "parsed": parsed,
+                    "error": err,
+                }
+            )
         _push_feedback(messages, text, err)
 
     last_err = attempts[-1].get("error") if attempts else "(unknown)"

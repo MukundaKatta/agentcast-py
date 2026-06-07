@@ -58,7 +58,9 @@ class _Adapters:
     @staticmethod
     def fn(
         predicate: Callable[[Any], bool],
-        error_builder: Union[str, Callable[[Any], str]] = "value did not pass predicate",
+        error_builder: Union[
+            str, Callable[[Any], str]
+        ] = "value did not pass predicate",
     ) -> Callable[[Any], dict]:
         """Predicate adapter for ad-hoc validation."""
         if not callable(predicate):
